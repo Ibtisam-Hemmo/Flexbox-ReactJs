@@ -1,44 +1,68 @@
-import logo from './logo.svg';
+
+import React from 'react' ; 
 import './App.css';
 
-function App() {
-    return ( <
-        div className = "App" >
-        <
-        section className = "container-fluid d-flex flex-column h-100vh" >
-        <
-        header className = "flex-fill row" >
-        <
-        div className = "py-3 border align-items-center col bg-primary border-primary" >
-        <
-        h2 className = "text-center text-white" > Header < /h2> <
-        /div> <
-        /header> <
-        section className = "flex-fill row" >
-        <
-        aside className = "order-2 py-3 border align-items-center col-12 order-md-1 col-md-3 bg-primary border-primary" >
-        <
-        h2 className = "text-center text-white" > Sidebar1 < /h2> <
-        /aside> <
-        main className = "order-1 py-3 border col-12 order-md-2 col-md-6 bg-primary border-primary" >
-        <
-        h2 className = "text-center text-white" > Main < /h2> <
-        /main> <
-        aside className = "order-3 py-3 border col-12 order-md-3 col-md-3 bg-primary border-primary" >
-        <
-        h2 className = "text-center text-white" > Sidebar2 < /h2> <
-        /aside> <
-        /section> <
-        footer className = "flex-fill row" >
-        <
-        div className = "py-3 border align-items-center col bg-primary border-primary" >
-        <
-        h2 className = "text-center text-white" > Footer < /h2> <
-        /div> <
-        /footer> <
-        /section> <
-        /div>
-    );
-}
+    var articalsData = [];
+        for (var i = 0; i < 3; i++) {
+        articalsData[i] = {
+            title: "New Blog Title" + (i + 1),
+            body:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+        };
+        }
+        const ArticalTitle = ({title}) => (<h1>{title}</h1>);
+        const Pargraph = ({text}) => (<p>{text}</p>);
+        
+        const ArticleB = ({title, body})=> (
+        <article className="artical">
+            <ArticalTitle title={title}/>
+            { body? <p>{body}</p>: '' }
+        </article>);
 
-export default App;
+    class Atricle extends React.Component{
+        constructor(){
+        super(); 
+        this.state = {
+            title: localStorage.getItem('title') , 
+            body: localStorage.getItem('body') 
+        }
+        } 
+        onclick = () => {
+            localStorage.setItem("title", document.getElementById("ArticalTitle").value);
+            localStorage.setItem("body", document.getElementById("ArticalBody").value);
+            this.setState(
+            {
+                title: localStorage.getItem('title'), 
+                body: localStorage.getItem('body')
+            }
+            );
+            articalsData.push(this.state.title);
+            articalsData.push(this.state.body);
+        }
+
+        render(){
+            return (
+            <div >
+                <div className="flex">
+                {articalsData.map((e,index)=>{
+                    return <ArticleB key={'art-'+index} 
+                                title={e.title} body={e.body} />
+                })}
+            </div >
+                <br/>
+                <h4 > The title is {this.state.title}</h4>
+                <h4 >The body is {this.state.body}</h4> <br />
+                    <div > 
+                        <label>Enter the title </label>            
+                        <input id="ArticalTitle" type="text" /> <br/> <br/> 
+                        <label>Enter the body </label> 
+                        <input  id="ArticalBody" type="text"/> 
+                        <br/> <br/>
+                        <button onClick={this.onclick}>Submit the article</button>
+                    </div>
+            </div>
+            )
+        }
+        
+    }
+    export default Atricle;

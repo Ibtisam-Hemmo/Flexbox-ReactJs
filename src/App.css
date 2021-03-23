@@ -22,3 +22,30 @@
 .border-primary {
     border-color: var(--border-color) !important;
 }
+
+.App {
+    background-color: aquamarine;
+    display: flex;
+}
+
+.artical {
+    background-color: #f0f0f0;
+    color: #222;
+    height: 120px;
+}
+
+.flex {
+    display: flex;
+}
+
+div {
+    text-align: center;
+}
+
+label {
+    margin-right: 10px;
+}
+
+h4 {
+    color: rgb(184, 83, 96);
+}
